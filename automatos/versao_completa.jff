@@ -87,10 +87,12 @@
 		<state id="17" name="q17">
 			<x>658.0</x>
 			<y>309.0</y>
+			<final/>
 		</state>
 		<state id="18" name="q18">
 			<x>642.0</x>
 			<y>351.0</y>
+			<final/>
 		</state>
 		<state id="19" name="q19">
 			<x>608.0</x>
