@@ -1,5 +1,3 @@
-//"VAR a,b,c; BEGIN a:=2; b:=3 c:=@+b; END."
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -49,18 +47,18 @@ typedef struct {
     char classe[100];
 } TokenClassPair;
 
-TokenClassPair getNextTokenClass(char *program, int *pos) {
+TokenClassPair getNextTokenClass(FILE *file, int *pos) {
     TokenClassPair pair;
     Token token;
     int i = *pos;
-    char c = program[i];
+    char c = fgetc(file);
     memset(token.lexeme, 0, sizeof(token.lexeme));
 
-    while (isspace(c)) {
-        c = program[++i];
+    while (isspace(c) || c == ',') {
+        c = fgetc(file);
     }
 
-    if (c == '\0') {
+    if (c == EOF) {
         token.type = END_OF_PROGRAM;
         pair.token = token;
         strcpy(pair.classe, "END_OF_PROGRAM");
@@ -114,101 +112,126 @@ TokenClassPair getNextTokenClass(char *program, int *pos) {
         strcpy(pair.classe, "simbolo_igual");
         break;
     case ':':
-        if (program[i + 1] == '=') {
+        if (fgetc(file) == '=') {
             token.type = ASSIGN;
             token.lexeme[0] = ':';
             token.lexeme[1] = '=';
             token.lexeme[2] = '\0'; 
             strcpy(pair.classe, "simbolo_atribuicao");
-            i++;
+        }
+        else {
+            fseek(file, -1, SEEK_CUR); // Volta o caractere lido para o arquivo
         }
         break;
     case '<':
         token.type = LT;
         token.lexeme[0] = c;
         strcpy(pair.classe, "simbolo_menor");
-        if (program[i + 1] == '=') {
+        if (fgetc(file) == '=') {
             token.type = LTE;
-            token.lexeme[1] = program[++i];
+            token.lexeme[1] = fgetc(file);
             strcpy(pair.classe, "simbolo_menor_igual");
+        }
+        else {
+            fseek(file, -1, SEEK_CUR); // Volta o caractere lido para o arquivo
         }
         break;
     case '>':
         token.type = GT;
         token.lexeme[0] = c;
         strcpy(pair.classe, "simbolo_maior");
-        if (program[i + 1] == '=') {
+        if (fgetc(file) == '=') {
             token.type = GTE;
-            token.lexeme[1] = program[++i];
+            token.lexeme[1] = fgetc(file);
             strcpy(pair.classe, "simbolo_maior_igual");
         }
+        else {
+            fseek(file, -1, SEEK_CUR); // Volta o caractere lido para o arquivo
+        }
         break;
+
+
     default:
-        if (isalpha(c) && isupper(c)){
+        if (isalpha(c) || c == '_') {
             int j = 0;
-            while (isupper(c) && program[i] != '\0') { 
+            while ((isalnum(c) || c == '_') && c != EOF) {
                 token.lexeme[j++] = c;
-                c = program[++i];
+                c = fgetc(file);
             }
             token.lexeme[j] = '\0'; 
 
-            if (j > 0 && !isalpha(c)) {
-                token.type = RESERVED;
-                strcpy(pair.classe, token.lexeme); 
-                i--;
+            if (strcmp(token.lexeme, "VAR") == 0) {
+                token.type = VAR;
+                strcpy(pair.classe, "VAR");
+            }
+            else if (strcmp(token.lexeme, "BEGIN") == 0) {
+                token.type = BEGIN;
+                strcpy(pair.classe, "BEGIN");
+            }
+            else if (strcmp(token.lexeme, "END") == 0) {
+                token.type = END;
+                strcpy(pair.classe, "END");
             }
             else {
                 token.type = IDENTIFIER;
                 strcpy(pair.classe, "ident");
-                i--;
             }
-        }
-        else if (isalpha(c) && islower(c)) {
-            int j = 0;
-            while (isalnum(c) && program[i] != '\0') {
-                token.lexeme[j++] = c;
-                c = program[++i];
+
+            if (!isalpha(c) && !isdigit(c) && c != '_') {
+                fseek(file, -1, SEEK_CUR); // Volta o caractere lido para o arquivo
             }
-            token.type = IDENTIFIER;
-            strcpy(pair.classe, "ident");
-            i--;
         }
         else if (isdigit(c)) {
             int j = 0;
-            while (isdigit(c) && program[i] != '\0') {
+            while (isdigit(c) && c != EOF) {
                 token.lexeme[j++] = c;
-                c = program[++i];
+                c = fgetc(file);
             }
+            token.lexeme[j] = '\0'; 
             token.type = NUMBER;
             strcpy(pair.classe, "numero");
-            i--;
 
-            if (isalpha(program[i + 1])) {
+            if (isalpha(c) || c == '_') {
                 token.type = ERROR;
                 strcpy(pair.classe, "<ERRO_LEXICO: numero mal formatado ou identificar invalido>");
+            }
+            else {
+                fseek(file, -1, SEEK_CUR); // Volta o caractere lido para o arquivo
             }
         }
         else {
             token.lexeme[0] = c;
             token.type = ERROR;
             strcpy(pair.classe, "<ERRO_LEXICO: caracter invalido>");
-        }    
+        }
     }
 
-    *pos = i + 1;
+    *pos = ftell(file);
     pair.token = token;
     return pair;
 }
 
-int main() {
-    char program[] = "VAR a,3b,c; BEGIN a:=2; b:=3 c:=@+b; END.";
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        printf("Uso: %s <arquivo_de_entrada>\n", argv[0]);
+        return 1;
+    }
+
+    FILE *file = fopen(argv[1], "r");
+    if (file == NULL) {
+        perror("Erro ao abrir arquivo");
+        return 1;
+    }
+
     int pos = 0;
     TokenClassPair pair;
 
     do {
-        pair = getNextTokenClass(program, &pos);
+        pair = getNextTokenClass(file, &pos);
         printf("%s, %s\n", pair.token.lexeme, pair.classe);
     } while (pair.token.type != END_OF_PROGRAM);
 
+    fclose(file);
     return 0;
 }
