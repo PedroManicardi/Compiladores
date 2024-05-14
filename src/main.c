@@ -178,6 +178,14 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
                 token.type = END;
                 strcpy(pair.classe, "END");
             }
+            else if (strcmp(token.lexeme, "CALL") == 0) {
+                token.type = END;
+                strcpy(pair.classe, "CALL");
+            }
+            else if (strcmp(token.lexeme, "PROCEDURE") == 0) {
+                token.type = END;
+                strcpy(pair.classe, "PROCEDURE");
+            }
             else {
                 token.type = IDENTIFIER;
                 strcpy(pair.classe, "ident");
