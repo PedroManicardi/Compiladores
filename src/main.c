@@ -54,7 +54,13 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
     char c = fgetc(file);
     memset(token.lexeme, 0, sizeof(token.lexeme));
 
-    while (isspace(c) || c == ',') {
+    // Ignora espaços em branco, vírgulas e comentários
+    while (isspace(c) || c == ',' || c == '{') {
+        if (c == '{') { // Se encontrar um '{', ignora até encontrar um '}'
+            while (c != '}' && c != EOF) {
+                c = fgetc(file);
+            }
+        }
         c = fgetc(file);
     }
 
