@@ -181,12 +181,36 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
                 strcpy(pair.classe, "END");
             }
             else if (strcmp(token.lexeme, "CALL") == 0) {
-                token.type = END;
+                token.type = CALL;
                 strcpy(pair.classe, "CALL");
             }
             else if (strcmp(token.lexeme, "PROCEDURE") == 0) {
-                token.type = END;
+                token.type = PROCEDURE;
                 strcpy(pair.classe, "PROCEDURE");
+            }
+            else if (strcmp(token.lexeme, "CONST") == 0) {
+                token.type = CONST;
+                strcpy(pair.classe, "CONST");
+            }
+            else if (strcmp(token.lexeme, "IF") == 0) {
+                token.type = IF;
+                strcpy(pair.classe, "IF");
+            }
+            else if (strcmp(token.lexeme, "THEN") == 0) {
+                token.type = THEN;
+                strcpy(pair.classe, "THEN");
+            }
+            else if (strcmp(token.lexeme, "WHILE") == 0) {
+                token.type = WHILE;
+                strcpy(pair.classe, "WHILE");
+            }
+            else if (strcmp(token.lexeme, "DO") == 0) {
+                token.type = DO;
+                strcpy(pair.classe, "DO");
+            }
+            else if (strcmp(token.lexeme, "ODD") == 0) {
+                token.type = ODD;
+                strcpy(pair.classe, "ODD");
             }
             else {
                 token.type = IDENTIFIER;
