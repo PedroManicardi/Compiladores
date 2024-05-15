@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <ctype.h>
 
 // Token types
@@ -53,6 +54,7 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
     int i = *pos;
     char c = fgetc(file);
     memset(token.lexeme, 0, sizeof(token.lexeme));
+    bool e = false;
 
     // Ignora espaços em branco, vírgulas e comentários
     while (isspace(c) || c == ',' || c == '{') {
@@ -197,21 +199,26 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
         }
         else if (isdigit(c)) {
             int j = 0;
-            while (isdigit(c) && c != EOF) {
+            while (isalnum(c) && c != EOF) {
                 token.lexeme[j++] = c;
                 c = fgetc(file);
+
+                if (isalpha(c) || c == '_') {
+                    e = true;
+                }
             }
             token.lexeme[j] = '\0'; 
-            token.type = NUMBER;
-            strcpy(pair.classe, "numero");
-
-            if (isalpha(c) || c == '_') {
+            if (e == true) {
                 token.type = ERROR;
-                strcpy(pair.classe, "<ERRO_LEXICO: numero mal formatado ou identificar invalido>");
+                e = true;
+                strcpy(pair.classe, "<ERRO_LEXICO: numero mal formatado ou identificador invalido>");
             }
             else {
-                fseek(file, -1, SEEK_CUR); // Volta o caractere lido para o arquivo
+                token.type = NUMBER;
+                strcpy(pair.classe, "numero");
+                fseek(file, -1, SEEK_CUR);
             }
+            
         }
         else {
             token.lexeme[0] = c;
