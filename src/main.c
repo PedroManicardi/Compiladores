@@ -48,6 +48,16 @@ typedef struct {
     char classe[100];
 } TokenClassPair;
 
+int pertence(char c) {
+    char caracteres_especiais[] = {'!', '"', '#', '$', '%', '&', '\'', '?', '@', '[', '\\', ']', '^', '_', '`', '|', '~'};
+    for (int i = 0; i < sizeof(caracteres_especiais) / sizeof(caracteres_especiais[0]); i++) {
+        if (caracteres_especiais[i] == c) {
+            return 1; // Retorna verdadeiro se o caractere estiver no vetor
+        }
+    }
+    return 0; 
+}
+
 TokenClassPair getNextTokenClass(FILE *file, int *pos) {
     TokenClassPair pair;
     Token token;
@@ -55,6 +65,7 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
     char c = fgetc(file);
     memset(token.lexeme, 0, sizeof(token.lexeme));
     bool e = false;
+    
 
     // Ignora espaços em branco, vírgulas e comentários
     while (isspace(c) || c == ',' || c == '{') {
@@ -160,11 +171,16 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
 
 
     default:
-        if (isalpha(c) || c == '_') {
+        if (isalpha(c)) {
             int j = 0;
-            while ((isalnum(c) || c == '_') && c != EOF) {
+            while ((isalnum(c) || pertence(c)) && c != EOF) {
                 token.lexeme[j++] = c;
                 c = fgetc(file);
+
+                if (pertence(c)) {
+                    e = true;
+                    strcpy(pair.classe, "Erro");
+                }
             }
             token.lexeme[j] = '\0'; 
 
@@ -213,28 +229,36 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
                 strcpy(pair.classe, "ODD");
             }
             else {
-                token.type = IDENTIFIER;
-                strcpy(pair.classe, "ident");
+                if (e) {
+                    token.type = ERROR;
+                    strcpy(pair.classe, "<ERRO_LEXICO: numero mal formatado ou identificador invalido>");
+                } else {
+                    token.type = IDENTIFIER;
+                    strcpy(pair.classe, "ident");
+                }
             }
 
-            if (!isalpha(c) && !isdigit(c) && c != '_') {
+            if (!isalpha(c) && !isdigit(c)) {
                 fseek(file, -1, SEEK_CUR); // Volta o caractere lido para o arquivo
             }
         }
         else if (isdigit(c)) {
             int j = 0;
-            while (isalnum(c) && c != EOF) {
+            while ((isalnum(c) || pertence(c)) && c != EOF) {
                 token.lexeme[j++] = c;
                 c = fgetc(file);
 
-                if (isalpha(c) || c == '_') {
+                if (isalpha(c)) {
+                    e = true;
+                }
+
+                if(pertence(c)) {
                     e = true;
                 }
             }
             token.lexeme[j] = '\0'; 
             if (e == true) {
                 token.type = ERROR;
-                e = true;
                 strcpy(pair.classe, "<ERRO_LEXICO: numero mal formatado ou identificador invalido>");
             }
             else {
