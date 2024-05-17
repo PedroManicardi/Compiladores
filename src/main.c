@@ -229,7 +229,7 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
                     // Verifica se houve erro, e em caso contrario se trata de um identificador
                     if (e) {
                         token.type = ERROR;
-                        strcpy(pair.classe, "<ERRO_LEXICO: numero mal formatado ou identificador invalido>");
+                        strcpy(pair.classe, "<ERRO_LEXICO: identificador invalido>");
                     } else {
                         token.type = IDENTIFIER;
                         strcpy(pair.classe, "ident");
@@ -272,9 +272,28 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
 
             // Caso em que o caracter lido eh invalido
             else {
-                token.lexeme[0] = c;
+                int j = 0;
+                // Continua lendo enquanto for alfanumerico ou caracter especial
+                while ((isalnum(c) || pertence(c)) && c != EOF) {
+                    token.lexeme[j++] = c;
+                    c = fgetc(file);
+                }
+                // Finaliza a string do lexema
+                token.lexeme[j] = '\0'; 
+                
                 token.type = ERROR;
-                strcpy(pair.classe, "<ERRO_LEXICO: caracter invalido>");
+                
+                // Verifica se o caracter especial esta sozinho ou se eh o inicio de um ident mal formatado
+                if (strlen(token.lexeme) == 1) {
+                    strcpy(pair.classe, "<ERRO_LEXICO: caracter invalido>");
+                } else {
+                    strcpy(pair.classe, "<ERRO_LEXICO: identificador invalido>");
+                }
+
+                if (!isalpha(c) && !isdigit(c)) {
+                    fseek(file, -1, SEEK_CUR); // Volta o caractere lido para o arquivo
+                }
+
             }
         }
 

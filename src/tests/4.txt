@@ -1,4 +1,4 @@
-VAR a,b,c;
+VAR a,@barco,carta$;
 BEGIN
         a:=2@3;
         b:=3;
