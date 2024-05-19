@@ -24,6 +24,36 @@
 		</state>
 		<!--The list of transitions.-->
 		<transition>
+			<from>3</from>
+			<to>3</to>
+			<read>a:z</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>3</to>
+			<read>a:z</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read>A:Z</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>3</to>
+			<read>A:Z</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>2</to>
+			<read>outro</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read>outro</read>
+		</transition>
+		<transition>
 			<from>1</from>
 			<to>3</to>
 			<read>0-9</read>
@@ -31,37 +61,17 @@
 		<transition>
 			<from>3</from>
 			<to>3</to>
-			<read>a:z</read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>1</to>
-			<read>A:Z</read>
-		</transition>
-		<transition>
-			<from>3</from>
-			<to>2</to>
-			<read>outro</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>3</to>
-			<read>a:z</read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>3</to>
-			<read>a:z</read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>2</to>
-			<read>outro</read>
+			<read>0-9</read>
 		</transition>
 		<transition>
 			<from>0</from>
 			<to>1</to>
 			<read>A:Z</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>3</to>
+			<read>a:z</read>
 		</transition>
 	</automaton>
 </structure>
