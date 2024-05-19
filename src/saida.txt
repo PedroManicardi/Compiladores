@@ -1,12 +1,13 @@
 VAR, VAR
 a, ident
-@barco, <ERRO_LEXICO: identificador invalido>
-carta$, <ERRO_LEXICO: identificador invalido>
+b, ident
+c, ident
 ;, simbolo_ponto_virgula
 BEGIN, BEGIN
 a, ident
 :=, simbolo_atribuicao
-2@3, <ERRO_LEXICO: numero mal formatado ou identificador invalido>
+2, numero
+;, simbolo_ponto_virgula
 b, ident
 :=, simbolo_atribuicao
 3, numero
