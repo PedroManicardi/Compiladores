@@ -1,0 +1,16 @@
+{ Exemplo 2: Programa para calcular o fatorial de um número }
+VAR n, f;
+
+PROCEDURE CalculateFactorial;
+VAR i;
+BEGIN
+    f := 1;
+    i := n;
+    WHILE i > 0 DO
+    BEGIN
+        f := f * i;
+        i := i - 1
+    END
+END;
+
+

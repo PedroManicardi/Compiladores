@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "token.h"
 
-// Função principal do analisador léxico
+// Funcao principal do analisador lexico
 TokenClassPair getNextTokenClass(FILE *file, int *pos);
 
 #endif // LEXER_H

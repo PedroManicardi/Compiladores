@@ -1,0 +1,14 @@
+{ Exemplo 4: Programa com erros léxicos }
+VAR 123n, f$;   
+
+PROCEDURE CalculateFactorial!; 
+VAR i;
+BEGIN
+    f := 1;
+    i := n;
+    WHILE i > 0 DO
+    BEGIN
+        f := f * i;
+        i := i - @;
+    END
+END

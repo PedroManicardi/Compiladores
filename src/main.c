@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Define o arquivo de saída
+    // Define o arquivo de saida
     char *outputFileName = "saida.txt"; 
     FILE *outputFile = fopen(outputFileName, "w");
     if (outputFile == NULL) {
