@@ -28,7 +28,7 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
     bool e = false;
     
 
-    // Ignora espaços em branco, virgulas e comentários
+    // Ignora espaços em branco, virgulas e comentarios
     while (isspace(c) || c == ',' || c == '{') {
         if (c == '{') { // Se encontrar um '{', ignora ate encontrar um '}'
             while (c != '}' && c != EOF) {
