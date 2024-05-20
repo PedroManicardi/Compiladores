@@ -1,4 +1,4 @@
-{ Exemplo 2: Programa para calcular o fatorial de um número }
+{ Exemplo 1: Programa para calcular o fatorial de um numero }
 VAR n, f;
 
 PROCEDURE CalculateFactorial;
@@ -11,6 +11,6 @@ BEGIN
         f := f * i;
         i := i - 1
     END
-END;
+END.
 
 

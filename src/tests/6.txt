@@ -1,4 +1,4 @@
-{ Exemplo 4: Programa com erros léxicos }
+{ Exemplo 2: Programa com erros lexicos }
 VAR 123n, f$;   
 
 PROCEDURE CalculateFactorial!; 
@@ -11,4 +11,4 @@ BEGIN
         f := f * i;
         i := i - @;
     END
-END
+END.
