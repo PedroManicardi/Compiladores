@@ -28,11 +28,23 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
     bool e = false;
     
 
-    // Ignora espaços em branco, virgulas e comentarios
+    // Ignora espaços em branco, virgulas e comentários
     while (isspace(c) || c == ',' || c == '{') {
         if (c == '{') { // Se encontrar um '{', ignora ate encontrar um '}'
+            int comentario_valido = 0;
             while (c != '}' && c != EOF) {
                 c = fgetc(file);
+                if (c == '\n') {
+                    printf("Erro: Comentário não fechado na linha.\n");
+                    exit(EXIT_FAILURE); 
+                }
+            }
+            if (c == '}') {
+                comentario_valido = 1;
+            }
+            if (!comentario_valido) {
+                printf("Erro: Comentário não fechado.\n");
+                exit(EXIT_FAILURE); 
             }
         }
         c = fgetc(file);
@@ -101,32 +113,37 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
                 strcpy(pair.classe, "simbolo_atribuicao");
             }
             else {
-                fseek(file, -1, SEEK_CUR); // Volta o caractere lido para o arquivo
+                fseek(file, -1, SEEK_CUR); 
             }
             break;
         case '<':
             token.type = LT;
             token.lexeme[0] = c;
+            token.lexeme[1] = '\0';
             strcpy(pair.classe, "simbolo_menor");
-            if (fgetc(file) == '=') {
+            c = fgetc(file);
+            if (c == '=') {
                 token.type = LTE;
-                token.lexeme[1] = fgetc(file);
+                token.lexeme[1] = c;
+                token.lexeme[2] = '\0';
                 strcpy(pair.classe, "simbolo_menor_igual");
-            }
-            else {
-                fseek(file, -1, SEEK_CUR); // Volta o caractere lido para o arquivo
+            } else {
+                fseek(file, -1, SEEK_CUR); 
             }
             break;
+
         case '>':
             token.type = GT;
             token.lexeme[0] = c;
+            token.lexeme[1] = '\0';
             strcpy(pair.classe, "simbolo_maior");
-            if (fgetc(file) == '=') {
+            c = fgetc(file);
+            if (c == '=') {
                 token.type = GTE;
-                token.lexeme[1] = fgetc(file);
+                token.lexeme[1] = c;
+                token.lexeme[2] = '\0';
                 strcpy(pair.classe, "simbolo_maior_igual");
-            }
-            else {
+            } else {
                 fseek(file, -1, SEEK_CUR); // Volta o caractere lido para o arquivo
             }
             break;
