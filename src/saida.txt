@@ -1,67 +1,40 @@
-VAR, VAR
-x, ident
-y, ident
-;, simbolo_ponto_virgula
-BEGIN, BEGIN
-x, ident
-:=, simbolo_atribuicao
-10, numero
-;, simbolo_ponto_virgula
-y, ident
-:=, simbolo_atribuicao
-20, numero
-;, simbolo_ponto_virgula
-IF, IF
-x, ident
-<=, simbolo_menor_igual
-y, ident
-THEN, THEN
-x, ident
-:=, simbolo_atribuicao
-x, ident
-+, simbolo_mais
-1, numero
-;, simbolo_ponto_virgula
-WHILE, WHILE
-x, ident
-<=, simbolo_menor_igual
-y, ident
-DO, DO
-x, ident
-:=, simbolo_atribuicao
-x, ident
--, simbolo_menos
-1, numero
-;, simbolo_ponto_virgula
-;, simbolo_ponto_virgula
-y, ident
-:=, simbolo_atribuicao
-y, ident
--, simbolo_menos
-2, numero
-;, simbolo_ponto_virgula
-IF, IF
-x, ident
->=, simbolo_maior_igual
-y, ident
-THEN, THEN
-y, ident
-:=, simbolo_atribuicao
-y, ident
-*, simbolo_vezes
-2, numero
-;, simbolo_ponto_virgula
-;, simbolo_ponto_virgula
-y, ident
-:=, simbolo_atribuicao
-x, ident
-/, simbolo_divisao
-0, numero
-;, simbolo_ponto_virgula
-x, ident
-:=, simbolo_atribuicao
-x, ident
-+, simbolo_mais
-<, simbolo_menor
-1, numero
-;, simbolo_ponto_virgula
+VAR, VAR, Linha 2
+123n, <ERRO_LEXICO: numero mal formatado ou identificador invalido>, Linha 2
+f$, <ERRO_LEXICO: identificador invalido>, Linha 2
+;, simbolo_ponto_virgula, Linha 2
+PROCEDURE, PROCEDURE, Linha 4
+CalculateFactorial!, <ERRO_LEXICO: identificador invalido>, Linha 4
+;, simbolo_ponto_virgula, Linha 4
+VAR, VAR, Linha 5
+i, ident, Linha 5
+;, simbolo_ponto_virgula, Linha 5
+BEGIN, BEGIN, Linha 6
+f, ident, Linha 7
+:=, simbolo_atribuicao, Linha 7
+1, numero, Linha 7
+;, simbolo_ponto_virgula, Linha 7
+i, ident, Linha 8
+:=, simbolo_atribuicao, Linha 8
+n, ident, Linha 8
+;, simbolo_ponto_virgula, Linha 8
+WHILE, WHILE, Linha 9
+i, ident, Linha 9
+>, simbolo_maior, Linha 9
+0, numero, Linha 9
+DO, DO, Linha 9
+BEGIN, BEGIN, Linha 10
+f, ident, Linha 11
+:=, simbolo_atribuicao, Linha 11
+f, ident, Linha 11
+*, simbolo_vezes, Linha 11
+i, ident, Linha 11
+;, simbolo_ponto_virgula, Linha 11
+i, ident, Linha 12
+:=, simbolo_atribuicao, Linha 12
+i, ident, Linha 12
+-, simbolo_menos, Linha 12
+@, <ERRO_LEXICO: caracter invalido>, Linha 12
+;, simbolo_ponto_virgula, Linha 12
+END, END, Linha 13
+END, END, Linha 14
+., simbolo_ponto, Linha 14

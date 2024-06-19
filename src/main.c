@@ -25,16 +25,18 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    int line_number = 1;
+
     // Inicializa a posicao do arquivo e o par
     int pos = 0;
     TokenClassPair pair;
 
     // Chama a funcao do analisador lexico para cada token do arquivo de entrada
     do {
-        pair = getNextTokenClass(file, &pos);
+        pair = getNextTokenClass(file, &pos, &line_number);
         if (pair.token.type != END_OF_PROGRAM) {
             // Escreve no arquivo de saida
-            fprintf(outputFile, "%s, %s\n", pair.token.lexeme, pair.classe);
+            fprintf(outputFile, "%s, %s, Linha %d\n", pair.token.lexeme, pair.classe, pair.line_number);
         }
     } while (pair.token.type != END_OF_PROGRAM);
 

@@ -27,8 +27,11 @@ typedef struct {
 
     // Classe associada ao token
     char classe[100];
+
+    // Numero da linha
+    int line_number;
 } TokenClassPair;
 
-TokenClassPair getNextTokenClass(FILE *file, int *pos);
+TokenClassPair getNextTokenClass(FILE *file, int *pos, int *line_number);
 
 #endif // TOKEN_H

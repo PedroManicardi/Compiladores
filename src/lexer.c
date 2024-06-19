@@ -4,6 +4,9 @@
 #include <ctype.h>
 #include <string.h>
 
+int line_number = 1;
+
+
 // Funcao auxiliar para verificar se o caracter eh especial
 int pertence(char c) {
     char caracteres_especiais[] = {'!', '"', '#', '$', '%', '&', '\'', '?', '@', '[', '\\', ']', '^', '_', '`', '|', '~'};
@@ -16,7 +19,7 @@ int pertence(char c) {
 }
 
 // Funcao principal do analisador lexico
-TokenClassPair getNextTokenClass(FILE *file, int *pos) {
+TokenClassPair getNextTokenClass(FILE *file, int *pos, int *line_number) {
     // Declaracao das variaveis
     TokenClassPair pair;
     Token token;
@@ -36,6 +39,7 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
                 c = fgetc(file);
                 if (c == '\n') {
                     printf("Erro: Comentário não fechado na linha.\n");
+                    (*line_number)++;
                     exit(EXIT_FAILURE); 
                 }
             }
@@ -46,6 +50,9 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
                 printf("Erro: Comentário não fechado.\n");
                 exit(EXIT_FAILURE); 
             }
+        }
+        else if (c == '\n'){
+            (*line_number)++;
         }
         c = fgetc(file);
     }
@@ -287,7 +294,7 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos) {
     // Atualiza a posicao do arquivo
     *pos = ftell(file);
     pair.token = token;
-
+    pair.line_number = *line_number;
     // Retorna o par token-classe
     return pair;
 }
