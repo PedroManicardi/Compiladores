@@ -4,9 +4,6 @@
 #include <ctype.h>
 #include <string.h>
 
-int line_number = 1;
-
-
 // Funcao auxiliar para verificar se o caracter eh especial
 int pertence(char c) {
     char caracteres_especiais[] = {'!', '"', '#', '$', '%', '&', '\'', '?', '@', '[', '\\', ']', '^', '_', '`', '|', '~'};
