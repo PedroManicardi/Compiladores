@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-TARGET = analisador_lexico
-SRCS = main.c lexer.c 
+TARGET = analisador_lexico_sintatico
+SRCS = main.c lexer.c asd.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(TARGET)
