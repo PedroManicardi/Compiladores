@@ -1,0 +1,12 @@
+{ Exemplo 2: Programa com erros lexicos e sintaticos} 
+VAR var1, 2barco,var3;
+BEGIN
+        IF var1 > var3 
+                a:=2;
+                b:=3;
+                c:=@+b;
+        IF var1 < var3 THEN
+                a:=4;
+                b:=5
+                c:= a + b;
+.
