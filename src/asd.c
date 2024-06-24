@@ -222,6 +222,10 @@
                     if (!strcmp(tokens[i].tipo, "<ERRO_LEXICO:_caracter_invalido>")){
                         strcpy(lex_error, "caracter inválido");
                     }
+
+                    if (!strcmp(tokens[i].tipo, "<ERRO_LEXICO:_palavra_reservada_mal_formatada>")) {
+                        strcpy(lex_error, "palavra reservada mal formatada");
+                    }
                     
                     fprintf(outputFile, "%s %s%s %s %s%s%s\n", "Erro léxico na linha", tokens[i].lineInfo, ":", lex_error, "(", tokens[i].token, ")");
                 }

@@ -1,9 +1,9 @@
 VAR, VAR, 1
-A, <ERRO_LEXICO:_palavra_reservada_mal_formatada>, 1
+a, ident, 1
 b, ident, 1
 c, ident, 1
 ;, simbolo_ponto_virgula, 1
-BEGIN, BEGIN, 2
+BGIN, <ERRO_LEXICO:_palavra_reservada_mal_formatada>, 2
 a, ident, 3
 :=, simbolo_atribuicao, 3
 2, numero, 3
