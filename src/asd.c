@@ -235,7 +235,14 @@
                 }
                 
             }
+            long fileSize = ftell(outputFile);
 
+            if (fileSize == 0) {
+                fprintf(outputFile, "Compilação feita com sucesso.\n");
+                printf("Compilação feita com sucesso.\n");
+            }
+            
             fclose(outputFile);
+
             return EXIT_SUCCESS;
         }

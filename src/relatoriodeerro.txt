@@ -1,3 +1,1 @@
-Erro léxico na linha 2: palavra reservada mal formatada (BGIN)
-Erro sintático na linha 5: ponto e virgula faltando
-Erro léxico na linha 5: caracter inválido (@)
+Compilação feita com sucesso.

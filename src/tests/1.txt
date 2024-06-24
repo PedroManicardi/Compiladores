@@ -1,6 +1,6 @@
 VAR a,b,c;
-BGIN
+BEGIN
         a:=2;
         b:=3;
-        c:=@+b
+        c:=b;
 END.

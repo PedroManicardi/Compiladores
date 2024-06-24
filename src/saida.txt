@@ -3,7 +3,7 @@ a, ident, 1
 b, ident, 1
 c, ident, 1
 ;, simbolo_ponto_virgula, 1
-BGIN, <ERRO_LEXICO:_palavra_reservada_mal_formatada>, 2
+BEGIN, BEGIN, 2
 a, ident, 3
 :=, simbolo_atribuicao, 3
 2, numero, 3
@@ -14,8 +14,7 @@ b, ident, 4
 ;, simbolo_ponto_virgula, 4
 c, ident, 5
 :=, simbolo_atribuicao, 5
-@, <ERRO_LEXICO:_caracter_invalido>, 5
-+, simbolo_mais, 5
 b, ident, 5
+;, simbolo_ponto_virgula, 5
 END, END, 6
 ., simbolo_ponto, 6
