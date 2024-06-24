@@ -1,0 +1,4 @@
+Erro léxico na linha 1:  (VARR)
+Erro léxico na linha 2:  (BGIN)
+Erro sintático na linha 5: ponto e virgula faltando
+Erro léxico na linha 5: caracter inválido (@)

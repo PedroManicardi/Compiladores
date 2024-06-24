@@ -18,6 +18,22 @@ int pertence(char c) {
   return 0;
 }
 
+// Funcao auxiliar para verificar se uma string esta completamente em maiusculas
+bool is_all_uppercase(const char *str) {
+  size_t len = strlen(str);
+
+  // Verifica se tem mais que um caractere
+  if (len <= 1) {
+    return false;
+  }
+  while (*str) {
+    if (!isupper(*str)) {
+      return false;
+    }
+    str++;
+  }
+  return true;
+}
 // Funcao principal do analisador lexico
 TokenClassPair getNextTokenClass(FILE *file, int *pos, int *line_count) {
   // Declaracao das variaveis
@@ -211,7 +227,10 @@ TokenClassPair getNextTokenClass(FILE *file, int *pos, int *line_count) {
         if (e) {
           token.type = ERROR;
           strcpy(pair.classe, "<ERRO_LEXICO:_identificador_invalido>");
-        } else {
+        }else if (is_all_uppercase(token.lexeme)) {
+          token.type = ERROR;
+          strcpy(pair.classe, "<ERRO_LEXICO:_palavra_reservada_mal_formatada>");
+        }else {
           token.type = IDENTIFIER;
           strcpy(pair.classe, "ident");
         }

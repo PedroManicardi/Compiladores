@@ -1,40 +1,67 @@
-VAR, VAR, Linha 2
-123n, <ERRO_LEXICO: numero mal formatado ou identificador invalido>, Linha 2
-f$, <ERRO_LEXICO: identificador invalido>, Linha 2
-;, simbolo_ponto_virgula, Linha 2
-PROCEDURE, PROCEDURE, Linha 4
-CalculateFactorial!, <ERRO_LEXICO: identificador invalido>, Linha 4
-;, simbolo_ponto_virgula, Linha 4
-VAR, VAR, Linha 5
-i, ident, Linha 5
-;, simbolo_ponto_virgula, Linha 5
-BEGIN, BEGIN, Linha 6
-f, ident, Linha 7
-:=, simbolo_atribuicao, Linha 7
-1, numero, Linha 7
-;, simbolo_ponto_virgula, Linha 7
-i, ident, Linha 8
-:=, simbolo_atribuicao, Linha 8
-n, ident, Linha 8
-;, simbolo_ponto_virgula, Linha 8
-WHILE, WHILE, Linha 9
-i, ident, Linha 9
->, simbolo_maior, Linha 9
-0, numero, Linha 9
-DO, DO, Linha 9
-BEGIN, BEGIN, Linha 10
-f, ident, Linha 11
-:=, simbolo_atribuicao, Linha 11
-f, ident, Linha 11
-*, simbolo_vezes, Linha 11
-i, ident, Linha 11
-;, simbolo_ponto_virgula, Linha 11
-i, ident, Linha 12
-:=, simbolo_atribuicao, Linha 12
-i, ident, Linha 12
--, simbolo_menos, Linha 12
-@, <ERRO_LEXICO: caracter invalido>, Linha 12
-;, simbolo_ponto_virgula, Linha 12
-END, END, Linha 13
-END, END, Linha 14
-., simbolo_ponto, Linha 14
+VAR, VAR, 1
+x, ident, 1
+y, ident, 1
+;, simbolo_ponto_virgula, 1
+BEGIN, BEGIN, 2
+x, ident, 3
+:=, simbolo_atribuicao, 3
+10, numero, 3
+;, simbolo_ponto_virgula, 3
+y, ident, 4
+:=, simbolo_atribuicao, 4
+20, numero, 4
+;, simbolo_ponto_virgula, 4
+IF, IF, 5
+x, ident, 5
+<=, simbolo_menor_igual, 5
+y, ident, 5
+THEN, THEN, 5
+x, ident, 6
+:=, simbolo_atribuicao, 6
+x, ident, 6
++, simbolo_mais, 6
+1, numero, 6
+;, simbolo_ponto_virgula, 6
+WHILE, WHILE, 7
+x, ident, 7
+<=, simbolo_menor_igual, 7
+y, ident, 7
+DO, DO, 7
+x, ident, 8
+:=, simbolo_atribuicao, 8
+x, ident, 8
+-, simbolo_menos, 8
+1, numero, 8
+;, simbolo_ponto_virgula, 8
+;, simbolo_ponto_virgula, 9
+y, ident, 11
+:=, simbolo_atribuicao, 11
+y, ident, 11
+-, simbolo_menos, 11
+2, numero, 11
+;, simbolo_ponto_virgula, 11
+IF, IF, 12
+x, ident, 12
+>=, simbolo_maior_igual, 12
+y, ident, 12
+THEN, THEN, 12
+y, ident, 13
+:=, simbolo_atribuicao, 13
+y, ident, 13
+*, simbolo_vezes, 13
+2, numero, 13
+;, simbolo_ponto_virgula, 13
+;, simbolo_ponto_virgula, 14
+y, ident, 15
+:=, simbolo_atribuicao, 15
+x, ident, 15
+/, simbolo_divisao, 15
+0, numero, 15
+;, simbolo_ponto_virgula, 15
+x, ident, 16
+:=, simbolo_atribuicao, 16
+x, ident, 16
++, simbolo_mais, 16
+<, simbolo_menor, 16
+1, numero, 16
+;, simbolo_ponto_virgula, 16
