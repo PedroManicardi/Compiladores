@@ -20,12 +20,6 @@ int pertence(char c) {
 
 // Funcao auxiliar para verificar se uma string esta completamente em maiusculas
 bool is_all_uppercase(const char *str) {
-  size_t len = strlen(str);
-
-  // Verifica se tem mais que um caractere
-  if (len <= 1) {
-    return false;
-  }
   while (*str) {
     if (!isupper(*str)) {
       return false;
